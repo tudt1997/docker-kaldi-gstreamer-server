@@ -34,17 +34,17 @@ RUN apt-get update && apt-get install -y  \
     apt-get clean autoclean && \
     apt-get autoremove -y && \
     pip install ws4py==0.3.2 && \
-    pip install tornado && \    
+    pip install tornado==5.1.1 && \    
     ln -s /usr/bin/python2.7 /usr/bin/python ; ln -s -f bash /bin/sh
 
 WORKDIR /opt
 
-RUN wget http://www.digip.org/jansson/releases/jansson-2.7.tar.bz2 && \
-    bunzip2 -c jansson-2.7.tar.bz2 | tar xf -  && \
-    cd jansson-2.7 && \
+RUN wget http://www.digip.org/jansson/releases/jansson-2.12.tar.bz2 && \
+    bunzip2 -c jansson-2.12.tar.bz2 | tar xf -  && \
+    cd jansson-2.12 && \
     ./configure && make -j $(nproc) && make check &&  make install && \
     echo "/usr/local/lib" >> /etc/ld.so.conf.d/jansson.conf && ldconfig && \
-    rm /opt/jansson-2.7.tar.bz2 && rm -rf /opt/jansson-2.7
+    rm /opt/jansson-2.12.tar.bz2 && rm -rf /opt/jansson-2.12
 
 RUN git clone https://github.com/kaldi-asr/kaldi && \
     cd /opt/kaldi/tools && \
